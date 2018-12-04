@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/banner.css">
+</head>
+
+<body>
+    <div class="qf-banner">
+        <ul class="banner-inner">
+            <li>
+                <img src="images/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/2.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/3.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/5.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/6.jpg" alt="">
+            </li>
+        </ul>
+        <ul class="banner-tip">
+            <li class="active a"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <a href="javascript:;" class="left-btn"></a>
+        <a href="javascript:;" class="right-btn"></a>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script>
+       var swiper = (function() {
+           var timer = null;
+           var showWidth = null;
+           return{
+               init(ele) {
+                   this.index = 0; // 当前图片展示的索引
+                   this.$ele = $(ele);
+                   // 获取一张图片的宽度
+                   showWidth = this.$ele.width();
+                   // 盛放盒子的模型
+                   this.$banner = $('.banner-inner');
+                   this.$bannerChild = this.$banner.children('li');
+                   // 小圆点的盒子
+                   this.$tipBox = $('.banner-tip');
+                   // 所有的小圆点
+                   this.$tipBoxLiAll = this.$tipBox.children('li');
+                   // 左箭头
+                   this.$prevBtn = $('.left-btn');
+                   // 右箭头
+                   this.$nextBtn = $('.right-btn');
+
+                   // 克隆图片
+                   var $firstImage = this.$bannerChild.first();
+                   var $lastImage = this.$bannerChild.last();
+                   $firstImage.clone().appendTo(this.$banner);
+                   $lastImage.clone().prependTo(this.$banner);
+
+                   this.$banner.css('left', -showWidth);
+                   this.event();
+               },
+               event() {
+                   var _this = this;
+                   this.$prevBtn.click(function() {
+                       _this.showImage(--_this.index)
+                   })
+                   this.$nextBtn.click(function() {
+                       _this.showImage(++_this.index)
+                   })
+                   this.$tipBox.on('click', 'li', function() {
+                       var index = $(this).index();
+                       _this.showImage(index);
+                   })
+               },
+               showImage: function(index = 0) {
+                   // 判断index是否合法
+                   if(index >= this.$tipBoxLiAll.length) {
+                       index = 0;
+                       this.$banner.css('left', 0);
+                   }else if(index < 0) {
+                       index = this.$tipBoxLiAll.length - 1;
+                       this.$banner.css('left', -showWidth * (index +2));
+                   }
+                   this.index = index;
+                   // 让所有的li清除类名ative
+                   this.$tipBoxLiAll.eq(index).addClass('active').siblings().removeClass('active');
+                   this.$banner.animate({
+                       left: -showWidth * (index + 1)
+                   }, 500)
+               }
+           }
+       }()) 
+       swiper.init('.qf-banner');
+    </script>
+</body>
+
+</html>
