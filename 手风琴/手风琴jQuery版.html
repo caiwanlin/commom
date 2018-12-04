@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .banner-inner {
+            width: 1200px;
+            height: 240px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+
+        .banner-inner li {
+            float: left;
+            width: 200px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="banner-inner">
+        <li><img src="images/1.jpg"></li>
+        <li><img src="images/2.jpg"></li>
+        <li><img src="images/3.jpg"></li>
+        <li><img src="images/4.jpg"></li>
+        <li><img src="images/5.jpg"></li>
+        <li><img src="images/6.jpg"></li>
+    </ul>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function() {
+            $('.banner-inner').on('mouseenter', 'li', function(){
+                $(this).stop().animate({width: 670}).siblings().stop().animate({width: 106})
+            })
+            $('.banner-inner').on('mouseleave', function(){
+                $(this).children('li').stop().animate({width: 200});
+            })
+        })
+    </script>
+</body>
+
+</html>

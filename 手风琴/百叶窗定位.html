@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .banner-inner {
+            width: 1200px;
+            height: 240px;
+            position: relative;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        .banner-inner li{
+            position: absolute
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="banner-inner">
+        <li><img src="images/1.jpg"></li>
+        <li><img src="images/2.jpg"></li>
+        <li><img src="images/3.jpg"></li>
+        <li><img src="images/4.jpg"></li>
+        <li><img src="images/5.jpg"></li>
+        <li><img src="images/6.jpg"></li>
+    </ul>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $('.banner-inner li').each(function(i) {
+            $(this).css({'left': i * 200, 'index': i + 1})
+        })
+        $('.banner-inner').on('mouseenter', 'li', function() {
+            $(this).prevAll().each(function() {
+                $(this).animate({left: $(this).index() * 106})
+            })
+            $(this).animate({left: $(this).index() * 106})
+            $(this).nextAll().each(function() {
+                $(this).animate({left: ($(this).index() - 1) * 106 + 670});
+            })
+        })
+        $('.banner-inner').on('mouseleave', 'li', function() {
+            $('.banner-inner li').each(function(i) {
+                $(this).animate({'left': i * 200})
+            })
+        })
+    </script>
+</body>
+</html>
